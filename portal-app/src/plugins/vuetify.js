@@ -5,14 +5,24 @@ import Vuetify, {
   VApp,
   VContent,
   VContainer,
-  VLayout,
-  VFlex,
+  VRow,
+  VCol,
   VForm,
   VTextField,
   VSelect,
   VCheckbox,
   VBtn,
-  VIcon
+  VIcon,
+  VExpansionPanels,
+  VExpansionPanel,
+  VExpansionPanelHeader,
+  VExpansionPanelContent,
+  VCard,
+  VCardTitle,
+  VCardSubtitle,
+  VCardText,
+  VCardActions,
+  VPagination
 } from "vuetify/lib";
 import { Ripple } from "vuetify/lib/directives";
 
@@ -21,14 +31,24 @@ Vue.use(Vuetify, {
     VApp,
     VContent,
     VContainer,
-    VLayout,
-    VFlex,
+    VRow,
+    VCol,
     VForm,
     VTextField,
     VSelect,
     VCheckbox,
     VBtn,
-    VIcon
+    VIcon,
+    VExpansionPanels,
+    VExpansionPanel,
+    VExpansionPanelHeader,
+    VExpansionPanelContent,
+    VCard,
+    VCardTitle,
+    VCardSubtitle,
+    VCardText,
+    VCardActions,
+    VPagination
   },
   icons: {
     iconfont: "mdi" // default - only for display purposes
