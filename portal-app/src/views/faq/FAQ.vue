@@ -1,11 +1,9 @@
 <template>
   <v-row class="faq" wrap>
     <v-col xs12 sm7>
-      Danh sach cau hoi
       <ListFAQ />
     </v-col>
     <v-col xs12 sm5>
-      Đặt câu hỏi
       <AdminEditFAQ />
     </v-col>
   </v-row>

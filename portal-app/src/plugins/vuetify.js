@@ -22,7 +22,19 @@ import Vuetify, {
   VCardSubtitle,
   VCardText,
   VCardActions,
-  VPagination
+  VPagination,
+  VListItem,
+  VListItemContent,
+  VListItemAvatar,
+  VImg,
+  VTabs,
+  VTabsSlider,
+  VTab,
+  VTabItem,
+  VMenu,
+  VList,
+  VListTile,
+  VListTileTitle
 } from "vuetify/lib";
 import { Ripple } from "vuetify/lib/directives";
 
@@ -48,7 +60,19 @@ Vue.use(Vuetify, {
     VCardSubtitle,
     VCardText,
     VCardActions,
-    VPagination
+    VPagination,
+    VListItem,
+    VListItemContent,
+    VListItemAvatar,
+    VImg,
+    VTabs,
+    VTabsSlider,
+    VTab,
+    VTabItem,
+    VMenu,
+    VList,
+    VListTile,
+    VListTileTitle
   },
   icons: {
     iconfont: "mdi" // default - only for display purposes

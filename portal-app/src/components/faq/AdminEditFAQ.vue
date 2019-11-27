@@ -1,49 +1,87 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Name"
-      required
-    ></v-text-field>
+  <v-tabs background-color="white" color="primary" class="elevation-2" dark>
+    <v-tabs-slider></v-tabs-slider>
 
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
+    <v-tab :href="`#tab-1`">
+      {{ title }}
+      <v-icon class="pl-2">mdi-phone</v-icon>
+    </v-tab>
 
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
+    <v-tab-item :value="'tab-1'">
+      <v-card flat tile>
+        <v-card-text>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-text-field
+              v-model="name"
+              :counter="10"
+              :rules="nameRules"
+              label="Name"
+              required
+              filled
+            ></v-text-field>
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+              filled
+            ></v-text-field>
 
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-      Validate
-      <v-icon right dark>mdi-cloud-upload</v-icon>
-    </v-btn>
+            <v-select
+              v-model="select"
+              :items="items"
+              :rules="[v => !!v || 'Item is required']"
+              label="Item"
+              required
+              filled
+            ></v-select>
 
-    <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
+            <v-checkbox
+              v-model="checkbox"
+              :rules="[v => !!v || 'You must agree to continue!']"
+              label="Do you agree?"
+              required
+              filled
+            ></v-checkbox>
 
-    <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
-  </v-form>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="mr-4"
+              @click="validate"
+            >
+              Validate
+              <v-icon right dark>mdi-cloud-upload</v-icon>
+            </v-btn>
+
+            <v-btn color="error" class="mr-4" @click="reset">
+              Reset Form
+            </v-btn>
+
+            <v-btn color="warning" @click="resetValidation">
+              Reset Validation
+            </v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-tab-item>
+  </v-tabs>
 </template>
 
 <script>
 export default {
   name: "admin-edit-faq",
+  props: {
+    title: {
+      type: String,
+      default: "ĐẶT CÂU HỎI"
+    },
+    total: {
+      type: Number,
+      default: 0
+    }
+  },
   data: () => ({
     valid: true,
     name: "",
