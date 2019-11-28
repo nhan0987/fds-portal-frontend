@@ -17,8 +17,9 @@
               @input="changeStartEnd"
             ></v-select>
             <v-pagination
+              v-if="showPagination"
               v-model="page"
-              :length="15"
+              :length="length"
               :total-visible="5"
               @input="changeStartEnd"
             ></v-pagination>
@@ -33,23 +34,45 @@
 export default {
   name: "c-pagination",
   props: {
-    changePageTime: {
+    reNew: {
       type: Number,
       default: 0
-    },
-    total: {
-      type: Number,
-      default: 0
+    }
+  },
+  watch: {
+    reNew() {
+      console.log("re new");
+      this.page = 1;
+      this.showPagination = false;
+      this.changeStartEnd();
     }
   },
   data: () => ({
     items: [5, 10, 30, 50],
     select: 5,
-    page: 1
+    page: 1,
+    length: 0,
+    showPagination: false,
+    total: 0
   }),
+  created() {
+    this.$nextTick(() => {
+      this.changeStartEnd();
+    });
+  },
   methods: {
     changeStartEnd() {
-      alert(this.page + " " + this.select);
+      const start = this.page * this.select - this.select;
+      const end = this.page * this.select;
+      this.$emit("changeStartEnd", {
+        start,
+        end
+      });
+    },
+    showPaginationM(total) {
+      this.length = Math.ceil(Number(total || 0) / this.select);
+      this.total = total;
+      this.showPagination = true;
     }
   }
 };
