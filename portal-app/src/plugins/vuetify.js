@@ -3,6 +3,7 @@ import "@mdi/font/css/materialdesignicons.css"; // Ensure you are using css-load
 import Vue from "vue";
 import Vuetify, {
   VApp,
+  VNavigationDrawer,
   VContent,
   VContainer,
   VRow,
@@ -22,13 +23,29 @@ import Vuetify, {
   VCardSubtitle,
   VCardText,
   VCardActions,
-  VPagination
+  VPagination,
+  VList,
+  VListItemGroup,
+  VListItem,
+  VListItemTitle,
+  VListItemContent,
+  VListItemAvatar,
+  VListItemIcon,
+  VImg,
+  VTabs,
+  VTabsSlider,
+  VTab,
+  VTabItem,
+  VMenu,
+  VTooltip,
+  VSpacer
 } from "vuetify/lib";
 import { Ripple } from "vuetify/lib/directives";
 
 Vue.use(Vuetify, {
   components: {
     VApp,
+    VNavigationDrawer,
     VContent,
     VContainer,
     VRow,
@@ -48,7 +65,22 @@ Vue.use(Vuetify, {
     VCardSubtitle,
     VCardText,
     VCardActions,
-    VPagination
+    VPagination,
+    VList,
+    VListItemGroup,
+    VListItem,
+    VListItemTitle,
+    VListItemContent,
+    VListItemAvatar,
+    VListItemIcon,
+    VImg,
+    VTabs,
+    VTabsSlider,
+    VTab,
+    VTabItem,
+    VMenu,
+    VTooltip,
+    VSpacer
   },
   icons: {
     iconfont: "mdi" // default - only for display purposes

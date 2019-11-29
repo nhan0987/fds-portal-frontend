@@ -1,49 +1,79 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
-      v-model="name"
-      :counter="10"
-      :rules="nameRules"
-      label="Name"
-      required
-    ></v-text-field>
+  <v-card class="list-faq">
+    <v-list-item>
+      <v-list-item-content>
+        <v-list-item-title class="headline primary--text">
+          {{ title }}
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+    <v-card-text>
+      <v-form ref="form" class="px-3" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="name"
+          :counter="10"
+          :rules="nameRules"
+          label="Name"
+          required
+          filled
+          @change="onFilter"
+        ></v-text-field>
 
-    <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
-      required
-    ></v-text-field>
+        <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+          filled
+          @change="onFilter"
+        ></v-text-field>
 
-    <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Item"
-      required
-    ></v-select>
+        <v-select
+          v-model="select"
+          :items="items"
+          :rules="[v => !!v || 'Item is required']"
+          label="Item"
+          required
+          filled
+          @change="onFilter"
+        ></v-select>
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
+        <v-btn
+          :disabled="!valid"
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          Validate
+          <v-icon right dark>mdi-cloud-upload</v-icon>
+        </v-btn>
 
-    <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-      Validate
-      <v-icon right dark>mdi-cloud-upload</v-icon>
-    </v-btn>
+        <v-btn color="error" class="mr-4" @click="reset">
+          Reset Form
+        </v-btn>
 
-    <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
-
-    <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
-  </v-form>
+        <v-btn color="warning" @click="resetValidation">
+          Reset Validation
+        </v-btn>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 export default {
-  name: "admin-edit-faq",
+  name: "filter-faq",
+  props: {
+    title: {
+      type: String,
+      default: "QUẢN LÝ CÂU HỎI"
+    },
+    isAdmin: {
+      type: Boolean,
+      default: true
+    }
+  },
+  components: {},
   data: () => ({
     valid: true,
     name: "",
@@ -58,7 +88,8 @@ export default {
     ],
     select: null,
     items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false
+    checkbox: false,
+    total: 0
   }),
   created() {
     // TODO: get list categories
@@ -70,6 +101,7 @@ export default {
     //   .catch(function(error) {
     //     console.log(error);
     //   });
+    this.onFilter();
   },
   methods: {
     validate() {
@@ -86,3 +118,19 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-expansion-panel-header {
+  padding-right: 85px;
+}
+.list-faq .v-expansion-panel-header__icon {
+  position: absolute;
+  top: 25px;
+  right: 20px;
+}
+.list-faq .custome-expansion-btn {
+  position: absolute;
+  top: 15px;
+  right: 45px;
+}
+</style>
