@@ -7,10 +7,10 @@
       app
     >
       <v-list rounded>
-        <v-list-item-group v-model="item" color="primary">
-          <v-tooltip right v-for="item in items" :key="item.title">
+        <v-list-item-group v-model="menuSelected" color="primary">
+          <v-tooltip right v-for="(item, index) in items" :key="item.title">
             <template v-slot:activator="{ on }">
-              <v-list-item v-on="on" @click="onFilter(item)">
+              <v-list-item v-on="on" @click="onFilter(item, index)">
                 <v-list-item-icon>
                   <v-icon :color="item.color" v-text="item.icon"></v-icon>
                 </v-list-item-icon>
@@ -29,15 +29,31 @@
         <!-- fill-height -->
         <v-row class="faq" wrap>
           <v-col xs12 sm12>
-            <transition>
+            <!-- <transition>
               <keep-alive>
                 <router-view></router-view>
               </keep-alive>
-            </transition>
+            </transition> -->
+            <router-view></router-view>
           </v-col>
         </v-row>
       </v-container>
     </v-content>
+    <v-fab-transition>
+      <v-btn
+        v-scroll="onScroll"
+        v-show="fab"
+        fab
+        dark
+        fixed
+        bottom
+        right
+        color="primary"
+        @click="toTop"
+      >
+        <v-icon>mdi-chevron-up</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-app>
 </template>
 
@@ -80,11 +96,13 @@ export default {
       }
     ],
     mini: false,
-    item: 0
+    menuSelected: 0,
+    fab: false
   }),
   created() {},
   methods: {
-    onFilter(item) {
+    onFilter(item, index) {
+      this.menuSelected = index;
       let oldQueries = { ...this.$route.query };
       this.items.forEach(item => {
         for (const key in item.queries) {
@@ -100,6 +118,14 @@ export default {
           reNew: Number(this.$route.query.reNew || 0) + 1
         }
       });
+    },
+    onScroll(e) {
+      if (typeof window === "undefined") return;
+      const top = window.pageYOffset || e.target.scrollTop || 0;
+      this.fab = top > 20;
+    },
+    toTop() {
+      this.$vuetify.goTo(0);
     }
   }
 };

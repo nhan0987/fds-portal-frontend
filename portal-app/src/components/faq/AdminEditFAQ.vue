@@ -8,52 +8,35 @@
       </v-list-item-content>
     </v-list-item>
     <v-card-text>
-      <v-form ref="form" class="px-3" v-model="valid" lazy-validation>
-        <v-text-field
-          v-model="name"
-          :counter="10"
-          :rules="nameRules"
-          label="Name"
-          required
-          filled
-          @change="onFilter"
-        ></v-text-field>
+      <v-form ref="form" class="px-3">
+        <v-alert outlined color="success">
+          <div class="title">
+            Tạo bởi: {{ question.askByUserName }} - Ngày
+            {{ question.createDate }}
+          </div>
+          <div v-html="question.askContent"></div>
+        </v-alert>
 
-        <v-text-field
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-          filled
-          @change="onFilter"
-        ></v-text-field>
+        <vue-editor
+          v-model="answerContent"
+          :editorToolbar="customToolbar"
+        ></vue-editor>
 
-        <v-select
-          v-model="select"
-          :items="items"
-          :rules="[v => !!v || 'Item is required']"
-          label="Item"
-          required
-          filled
-          @change="onFilter"
-        ></v-select>
+        <v-checkbox
+          v-model="checkboxStatus"
+          :label="checkboxStatus ? 'Công khai' : 'Không công khai'"
+        >
+        </v-checkbox>
 
         <v-btn
-          :disabled="!valid"
+          :disabled="isLoading"
+          :loading="isLoading"
           color="success"
           class="mr-4"
-          @click="validate"
+          @click="saveQuestion"
         >
-          Validate
+          Lưu lại
           <v-icon right dark>mdi-cloud-upload</v-icon>
-        </v-btn>
-
-        <v-btn color="error" class="mr-4" @click="reset">
-          Reset Form
-        </v-btn>
-
-        <v-btn color="warning" @click="resetValidation">
-          Reset Validation
         </v-btn>
       </v-form>
     </v-card-text>
@@ -61,6 +44,7 @@
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
 export default {
   name: "filter-faq",
   props: {
@@ -73,25 +57,37 @@ export default {
       default: true
     }
   },
-  components: {},
+  components: { VueEditor },
+  watch: {
+    "$route.params.id"(val) {
+      if (val > 0) {
+        this.getDetail();
+      }
+    }
+  },
   data: () => ({
-    valid: true,
-    name: "",
-    nameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length <= 10) || "Name must be less than 10 characters"
-    ],
-    email: "",
-    emailRules: [
-      v => !!v || "E-mail is required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-    ],
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false,
-    total: 0
+    isLoading: false,
+    checkboxStatus: false,
+    question: {},
+    answerContent: "",
+    customToolbar: [
+      [{ header: [false, 1, 2, 3, 4, 5, 6] }],
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      [
+        { align: "" },
+        { align: "center" },
+        { align: "right" },
+        { align: "justify" }
+      ],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      // ["link", "image", "video"],
+      ["clean"] // remove formatting button
+    ]
   }),
-  created() {
+  async created() {
     // TODO: get list categories
     // this.$httpAxios
     //   .get("https://api.github.com/users/mojombo")
@@ -101,36 +97,52 @@ export default {
     //   .catch(function(error) {
     //     console.log(error);
     //   });
-    this.onFilter();
+    console.log(this.$route.params.id);
+    this.getDetail();
   },
   methods: {
-    validate() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
+    async saveQuestion() {
+      try {
+        this.isLoading = true;
+        let dataAdd = new URLSearchParams();
+        dataAdd.append("status", this.checkboxStatus ? 1 : 0);
+        dataAdd.append("answerContent", this.answerContent);
+        await this.$httpAxios
+          .put(this.end_point_questions + this.question.questionId, dataAdd, {})
+          .then(response => response.data);
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+        this.isLoading = false;
       }
     },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+    async getDetail() {
+      try {
+        const data = await this.$httpAxios
+          .get(this.end_point_questions + this.$route.params.id)
+          .then(response => response.data);
+        this.question = data;
+        this.checkboxStatus = this.question.status === 1;
+        this.answerContent = this.question.answerContent;
+      } catch (error) {
+        console.log(error);
+        this.question = {
+          askByUserName: "user 1",
+          askByUserAddress: "address 1",
+          questionId: "101",
+          answerContent: "<p><strong>Answer content 1</strong></p>",
+          modifiedDate: "02/12/2019",
+          askByUserPhone: "User phone",
+          assignCategory: "0",
+          askByUserEmail: "erewr@gmail.com",
+          createDate: "02/12/2019",
+          askContent: "ser",
+          status: 1
+        };
+        this.checkboxStatus = this.question.status === 1;
+        this.answerContent = this.question.answerContent;
+      }
     }
   }
 };
 </script>
-
-<style>
-.v-expansion-panel-header {
-  padding-right: 85px;
-}
-.list-faq .v-expansion-panel-header__icon {
-  position: absolute;
-  top: 25px;
-  right: 20px;
-}
-.list-faq .custome-expansion-btn {
-  position: absolute;
-  top: 15px;
-  right: 45px;
-}
-</style>
