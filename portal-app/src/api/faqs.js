@@ -136,7 +136,7 @@ const hasServer = {
         cb(result);
       })
       .catch(function(error) {
-        console.log(error);
+        // console.error(error);
         errorCb(error);
       });
   },
@@ -155,7 +155,7 @@ const hasServer = {
         cb(serializable);
       })
       .catch(function(error) {
-        console.log(error);
+        // console.error(error);
         errorCb(error);
       });
   },
@@ -175,7 +175,7 @@ const hasServer = {
         cb(serializable);
       })
       .catch(function(error) {
-        console.log(error);
+        // console.error(error);
         errorCb(error);
       });
   },
@@ -196,7 +196,7 @@ const hasServer = {
         cb(serializable);
       })
       .catch(function(error) {
-        console.log(error);
+        // console.error(error);
         errorCb(error);
       });
   },
@@ -212,7 +212,7 @@ const hasServer = {
         cb(serializable);
       })
       .catch(function(error) {
-        console.log(error);
+        // console.error(error);
         errorCb(error);
       });
   }

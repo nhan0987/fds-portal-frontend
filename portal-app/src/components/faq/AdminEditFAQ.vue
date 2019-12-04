@@ -92,12 +92,12 @@ export default {
     // this.$httpAxios
     //   .get("https://api.github.com/users/mojombo")
     //   .then(function(response) {
-    //     console.log(response);
+    //     // console.log(response);
     //   })
     //   .catch(function(error) {
-    //     console.log(error);
+    //     // console.error(error);
     //   });
-    console.log(this.$route.params.id);
+    // console.log(this.$route.params.id);
     this.getDetail();
   },
   methods: {
@@ -112,7 +112,7 @@ export default {
           .then(response => response.data);
         this.isLoading = false;
       } catch (error) {
-        console.log(error);
+        // console.error(error);
         this.isLoading = false;
       }
     },
@@ -125,7 +125,7 @@ export default {
         this.checkboxStatus = this.question.status === 1;
         this.answerContent = this.question.answerContent;
       } catch (error) {
-        console.log(error);
+        // console.error(error);
         this.question = {
           askByUserName: "user 1",
           askByUserAddress: "address 1",

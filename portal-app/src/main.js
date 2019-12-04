@@ -26,9 +26,15 @@ router.beforeEach(async (to, from, next) => {
 Vue.config.productionTip = false;
 
 // use if alway need groupId in headers
-// axios.defaults.headers.common["groupId"] = window.themeDisplay
-//   ? window.themeDisplay.getScopeGroupId()
-//   : 42942;
+axios.defaults.headers.common["groupId"] = window.themeDisplay
+  ? window.themeDisplay.getScopeGroupId()
+  : 42942;
+axios.defaults.headers.common["companyId"] = window.themeDisplay
+  ? window.themeDisplay.getCompanyId()
+  : 42942;
+axios.defaults.headers.common["languageId"] = window.themeDisplay
+  ? window.themeDisplay.getLanguageId()
+  : 42942;
 Vue.prototype.$httpAxios = axios;
 Vue.mixin(mixinApp);
 new Vue({
@@ -36,4 +42,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount("#app");
+}).$mount("#app-faq");

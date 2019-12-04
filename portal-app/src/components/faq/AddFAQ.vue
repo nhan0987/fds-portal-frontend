@@ -136,7 +136,7 @@ export default {
         .then(response => response.data);
       this.assetcategories = data.data;
     } catch (error) {
-      console.log(error);
+      // console.error(error);
       this.assetcategories = [
         {
           categoryId: 1,
@@ -186,7 +186,7 @@ export default {
         this.$refs.form.reset();
         this.isAdding = false;
       } catch (error) {
-        console.log(error);
+        // console.error(error);
         this.isAdding = false;
       }
     },

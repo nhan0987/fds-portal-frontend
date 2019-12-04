@@ -191,7 +191,7 @@ export default {
         .then(response => response.data);
       this.assetcategories = data.data;
     } catch (error) {
-      console.log(error);
+      // console.error(error);
       this.assetcategories = [
         {
           categoryId: 1,
@@ -225,7 +225,7 @@ export default {
       });
     },
     async getFAQs({ start, end }) {
-      console.log("getFAQs" + start + " " + end);
+      // console.log("getFAQs" + start + " " + end);
       this.start = start;
       if (this.isLoading) {
         return;
@@ -239,7 +239,7 @@ export default {
         this.questions = data.data;
         this.isLoading = false;
       } catch (error) {
-        console.log(error);
+        // console.error(error);
         this.questions = [
           {
             askByUserName: "user 1",
@@ -273,7 +273,7 @@ export default {
       }
     },
     viewDetailFAQ(item) {
-      console.log("detail: " + item);
+      // console.log("detail: " + item);
       this.$router.push("/admin/" + item.questionId);
     },
     async toggleStatus(item) {
@@ -288,7 +288,7 @@ export default {
           item.status = toggle;
         }
       } catch (error) {
-        console.log(error);
+        // console.error(error);
       }
     },
     deleteQuestion(item) {
@@ -311,7 +311,7 @@ export default {
           }
         });
       } catch (error) {
-        console.log(error);
+        // console.error(error);
       }
     }
   }

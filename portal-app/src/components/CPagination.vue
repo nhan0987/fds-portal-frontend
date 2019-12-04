@@ -41,7 +41,7 @@ export default {
   },
   watch: {
     reNew() {
-      console.log("re new");
+      // console.error("re new");
       this.page = 1;
       this.showPagination = false;
       this.changeStartEnd();

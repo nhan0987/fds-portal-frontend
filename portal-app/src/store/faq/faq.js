@@ -24,7 +24,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         // commit('setQuestionItems', [])
         // reject(error)
       };
@@ -42,7 +42,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         reject(error);
       };
       questionApi.createQuestion(payload, cb, errorCb);
@@ -56,7 +56,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         reject(error);
       };
       questionApi.readQuestion(jobPosId, cb, errorCb);
@@ -83,7 +83,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         reject(error);
       };
       questionApi.updateQuestion(payload, cb, errorCb);
@@ -102,7 +102,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         reject(error);
       };
       questionApi.deleteQuestion(jobPosId, cb, errorCb);
@@ -116,7 +116,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         reject(error);
       };
       questionApi.putQuestionLogo(payload, cb, errorCb);
@@ -130,7 +130,7 @@ const actions = {
 
       // TODO: check when call api error
       let errorCb = error => {
-        console.log(error);
+        // console.error(error);
         reject(error);
       };
       questionApi.getQuestionLogo(jobPosId, cb, errorCb);
