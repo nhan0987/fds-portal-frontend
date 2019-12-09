@@ -7,7 +7,7 @@
           <v-btn
             icon
             color="primary"
-            class="float-right"
+            :class="'float-right' + (isOAdmin ? ' mr-5' : '')"
             @click="$router.replace({ name: 'listFAQ' })"
             v-if="isOAdmin"
           >
@@ -224,7 +224,7 @@ export default {
         }
       });
     },
-    async getFAQs({ start, end }) {
+    async getFAQs({ start }) {
       // console.log("getFAQs" + start + " " + end);
       this.start = start;
       if (this.isLoading) {

@@ -8,8 +8,9 @@ const AppVariables = {
       },
       get end_point_assetcategories() {
         return window.themeDisplay
-          ? window.themeDisplay.getCDNBaseURL() + "/o/rest/assetcategory/"
-          : "http://localhost:8080/api/o/rest/assetcategory/";
+          ? window.themeDisplay.getCDNBaseURL() +
+              "/o/rest/assetcategories/?masterkey=master.data.faq.assign.category"
+          : "http://localhost:8080/api/o/rest/assetcategories/";
       },
       get group_id() {
         return window.themeDisplay
@@ -30,7 +31,7 @@ const AppVariables = {
           : "vi";
       },
       get isOAdmin() {
-        return window.FAQ ? window.FAQ.isOAdmin : false;
+        return window.FAQ ? window.FAQ.isOAdmin : true;
       },
       customFilterUser(item, queryText) {
         const hasValue = val => (val != null ? val : "");

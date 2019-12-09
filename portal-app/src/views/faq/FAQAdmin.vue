@@ -1,10 +1,12 @@
 <template>
-  <v-app>
+  <v-app id="app-faq">
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant.sync="mini"
       permanent
       app
+      clipped
+      absolute
     >
       <v-list rounded>
         <v-list-item-group v-model="menuSelected" color="primary">
@@ -25,10 +27,10 @@
       </v-list>
     </v-navigation-drawer>
     <v-content>
-      <v-container fluid>
+      <v-container fluid class="pl-0 pt-0">
         <!-- fill-height -->
         <v-row class="faq" wrap>
-          <v-col xs12 sm12>
+          <v-col xs12 sm12 class="pt-0">
             <!-- <transition>
               <keep-alive>
                 <router-view></router-view>

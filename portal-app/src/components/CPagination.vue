@@ -14,7 +14,7 @@
               hide-details
               v-model="select"
               :items="items"
-              @input="changeStartEnd"
+              @change="changeStartEnd"
             ></v-select>
             <v-pagination
               v-if="showPagination"

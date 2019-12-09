@@ -171,7 +171,7 @@ export default {
         dataAdd.append("assetcategory", this.assetcategory || 0);
         dataAdd.append("askContent", this.askContent || "");
         const data = await this.$httpAxios
-          .post(this.end_point_assetcategories, dataAdd, {})
+          .post(this.end_point_questions, dataAdd, {})
           .then(response => response.data);
         if (data) {
           this.$router.replace({
@@ -185,6 +185,7 @@ export default {
         }
         this.$refs.form.reset();
         this.isAdding = false;
+        this.$emit("onHideAddPage");
       } catch (error) {
         // console.error(error);
         this.isAdding = false;
@@ -192,6 +193,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+      this.$emit("onHideAddPage");
     }
   }
 };

@@ -32,9 +32,12 @@ axios.defaults.headers.common["groupId"] = window.themeDisplay
 axios.defaults.headers.common["companyId"] = window.themeDisplay
   ? window.themeDisplay.getCompanyId()
   : 42942;
-axios.defaults.headers.common["languageId"] = window.themeDisplay
+axios.defaults.headers.common["languageCode"] = window.themeDisplay
   ? window.themeDisplay.getLanguageId()
   : 42942;
+axios.defaults.headers.common["Authorization"] =
+  "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0";
+axios.defaults.headers.common["Accept"] = "application/json";
 Vue.prototype.$httpAxios = axios;
 Vue.mixin(mixinApp);
 new Vue({
