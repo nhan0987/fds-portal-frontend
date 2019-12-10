@@ -70,31 +70,31 @@ export default {
         title: "Tất cả câu hỏi",
         icon: "mdi-all-inclusive",
         color: "info",
-        queries: { all: true }
+        queries: { status: "0,1,2,5" }
       },
       {
         title: "Câu hỏi đã trả lời",
         icon: "mdi-reply-all",
         color: "success",
-        queries: { answered: true }
+        queries: { status: 2 }
       },
       {
         title: "Câu hỏi chưa trả lời",
         icon: "mdi-reply",
         color: "warning",
-        queries: { answered: false }
+        queries: { status: 1 }
       },
       {
         title: "Câu hỏi công khai",
         icon: "mdi-earth",
         color: "success",
-        queries: { publish: 1 }
+        queries: { status: 0 }
       },
       {
         title: "Câu hỏi chưa công khai",
         icon: "mdi-earth-off",
         color: "error",
-        queries: { publish: 0 }
+        queries: { status: 5 }
       }
     ],
     mini: false,

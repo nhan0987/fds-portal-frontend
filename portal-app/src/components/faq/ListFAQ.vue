@@ -98,13 +98,13 @@
                 <v-list-item-title>
                   <v-icon color="primary">
                     {{
-                      question.status === 1
+                      question.status === 0
                         ? "mdi-lock"
                         : "mdi-lock-open-variant"
                     }}
                   </v-icon>
                   &nbsp;
-                  {{ question.status === 1 ? "Bỏ công khai" : "Công khai" }}
+                  {{ question.status === 0 ? "Bỏ công khai" : "Công khai" }}
                 </v-list-item-title>
               </v-list-item>
               <v-list-item @click="deleteQuestion(question)">
@@ -252,7 +252,7 @@ export default {
             askByUserEmail: "erewr@gmail.com",
             createDate: "02/12/2019",
             askContent: "ser",
-            status: 1
+            status: 5
           },
           {
             askByUserName: "user 2",
@@ -279,7 +279,7 @@ export default {
     async toggleStatus(item) {
       try {
         let dataAdd = new URLSearchParams();
-        const toggle = item.status === 1 ? 0 : 1;
+        const toggle = item.status === 0 ? 5 : 0;
         dataAdd.append("status", toggle);
         const data = await this.$httpAxios
           .put(this.end_point_questions + item.questionId, dataAdd, {})
