@@ -213,6 +213,15 @@ export default {
   },
   methods: {
     onFilter() {
+      let status = "";
+      if (!this.isAdmin) {
+        status = "0";
+      } else if (window.location.hash.indexOf("status") >= 0) {
+        const url2 = window.location.hash.split("status=")[1];
+        status = url2.split("&")[0] || url2;
+      } else if (window.location.hash.indexOf("status") < 0) {
+        status = "0,1,2,5";
+      }
       this.$router.replace({
         name: this.$route.name,
         params: this.$route.params,
@@ -220,11 +229,12 @@ export default {
           ...this.$route.query,
           reNew: Number(this.$route.query.reNew || 0) + 1,
           keyword: this.keyword || "",
-          assetcategory: this.assetcategory || ""
+          assetcategory: this.assetcategory || "",
+          status
         }
       });
     },
-    async getFAQs({ start }) {
+    async getFAQs({ start, end }) {
       // console.log("getFAQs" + start + " " + end);
       this.start = start;
       if (this.isLoading) {
@@ -232,8 +242,20 @@ export default {
       }
       try {
         this.isLoading = true;
+        const queries = {
+          start,
+          end
+        };
+        let url = this.end_point_questions;
+        if (window.location.hash.indexOf("?") > 0) {
+          url += "?" + window.location.hash.split("?")[1];
+        } else {
+          url += "?status=" + (!this.isAdmin ? "0" : "0,1,2,5");
+        }
         const data = await this.$httpAxios
-          .get(this.end_point_questions)
+          .get(url, {
+            params: queries
+          })
           .then(response => response.data);
         this.$refs.pagination.showPaginationM(data.total || 0);
         this.questions = data.data;
@@ -280,9 +302,15 @@ export default {
       try {
         let dataAdd = new URLSearchParams();
         const toggle = item.status === 0 ? 5 : 0;
-        dataAdd.append("status", toggle);
+        for (let key in item) {
+          if (key === "status") {
+            dataAdd.append("status", toggle);
+          } else {
+            dataAdd.append(key, item[key]);
+          }
+        }
         const data = await this.$httpAxios
-          .put(this.end_point_questions + item.questionId, dataAdd, {})
+          .post(this.end_point_questions, dataAdd, {})
           .then(response => response.data);
         if (data) {
           item.status = toggle;

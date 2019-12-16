@@ -35,6 +35,9 @@ axios.defaults.headers.common["companyId"] = window.themeDisplay
 axios.defaults.headers.common["languageCode"] = window.themeDisplay
   ? window.themeDisplay.getLanguageId()
   : 42942;
+axios.defaults.headers.common["userId"] = window.themeDisplay
+  ? window.themeDisplay.getUserId()
+  : 42942;
 axios.defaults.headers.common["Authorization"] =
   "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0";
 axios.defaults.headers.common["Accept"] = "application/json";

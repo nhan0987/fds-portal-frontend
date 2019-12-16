@@ -105,10 +105,19 @@ export default {
       try {
         this.isLoading = true;
         let dataAdd = new URLSearchParams();
-        dataAdd.append("status", this.checkboxStatus ? 1 : 0);
+        for (let key in this.question) {
+          if (key !== "status" && key !== "answerContent") {
+            dataAdd.append(key, this.question[key]);
+          }
+        }
+        dataAdd.append("status", this.checkboxStatus ? 0 : 5);
         dataAdd.append("answerContent", this.answerContent);
         await this.$httpAxios
-          .put(this.end_point_questions + this.question.questionId, dataAdd, {})
+          .post(
+            this.end_point_questions,
+            dataAdd,
+            {}
+          )
           .then(response => response.data);
         this.isLoading = false;
       } catch (error) {
@@ -122,7 +131,7 @@ export default {
           .get(this.end_point_questions + this.$route.params.id)
           .then(response => response.data);
         this.question = data;
-        this.checkboxStatus = this.question.status === 1;
+        this.checkboxStatus = this.question.status === 0;
         this.answerContent = this.question.answerContent;
       } catch (error) {
         // console.error(error);
@@ -139,7 +148,7 @@ export default {
           askContent: "ser",
           status: 1
         };
-        this.checkboxStatus = this.question.status === 1;
+        this.checkboxStatus = this.question.status === 0;
         this.answerContent = this.question.answerContent;
       }
     }
