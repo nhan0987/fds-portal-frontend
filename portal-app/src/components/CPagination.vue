@@ -14,7 +14,7 @@
               hide-details
               v-model="select"
               :items="items"
-              @input="changeStartEnd"
+              @change="changeStartEnd"
             ></v-select>
             <v-pagination
               v-if="showPagination"
@@ -41,7 +41,7 @@ export default {
   },
   watch: {
     reNew() {
-      console.log("re new");
+      // console.error("re new");
       this.page = 1;
       this.showPagination = false;
       this.changeStartEnd();

@@ -1,9 +1,10 @@
 <template>
-  <transition>
+  <!-- <transition>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-  </transition>
+  </transition> -->
+  <router-view></router-view>
 </template>
 
 <script>

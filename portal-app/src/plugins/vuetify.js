@@ -10,7 +10,9 @@ import Vuetify, {
   VCol,
   VForm,
   VTextField,
+  VTextarea,
   VSelect,
+  VAutocomplete,
   VCheckbox,
   VBtn,
   VIcon,
@@ -28,6 +30,7 @@ import Vuetify, {
   VListItemGroup,
   VListItem,
   VListItemTitle,
+  VListItemSubtitle,
   VListItemContent,
   VListItemAvatar,
   VListItemIcon,
@@ -38,9 +41,13 @@ import Vuetify, {
   VTabItem,
   VMenu,
   VTooltip,
-  VSpacer
+  VSpacer,
+  VFadeTransition,
+  VFabTransition,
+  VAlert,
+  VDialog
 } from "vuetify/lib";
-import { Ripple } from "vuetify/lib/directives";
+import * as directives from "vuetify/lib/directives";
 
 Vue.use(Vuetify, {
   components: {
@@ -52,7 +59,9 @@ Vue.use(Vuetify, {
     VCol,
     VForm,
     VTextField,
+    VTextarea,
     VSelect,
+    VAutocomplete,
     VCheckbox,
     VBtn,
     VIcon,
@@ -70,6 +79,7 @@ Vue.use(Vuetify, {
     VListItemGroup,
     VListItem,
     VListItemTitle,
+    VListItemSubtitle,
     VListItemContent,
     VListItemAvatar,
     VListItemIcon,
@@ -80,14 +90,16 @@ Vue.use(Vuetify, {
     VTabItem,
     VMenu,
     VTooltip,
-    VSpacer
+    VSpacer,
+    VFadeTransition,
+    VFabTransition,
+    VAlert,
+    VDialog
   },
   icons: {
     iconfont: "mdi" // default - only for display purposes
   },
-  directives: {
-    Ripple
-  }
+  directives
 });
 
 const opts = {};
