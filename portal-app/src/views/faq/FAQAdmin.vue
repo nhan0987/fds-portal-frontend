@@ -28,6 +28,20 @@
     </v-navigation-drawer>
     <v-content>
       <v-container fluid class="pl-0 pt-0">
+        <v-alert
+          :value="alert"
+          :color="$store.getters.alertColor"
+          dark
+          border="left"
+          icon="mdi-bell-check"
+          transition="scale-transition"
+          width="500"
+          class="app-alert"
+          dismissible
+          prominent
+        >
+          {{ $store.getters.alertMessage }}
+        </v-alert>
         <!-- fill-height -->
         <v-row class="faq" wrap>
           <v-col xs12 sm12 class="pt-0">
@@ -73,12 +87,6 @@ export default {
         queries: { status: "0,1,2,5" }
       },
       {
-        title: "Câu hỏi đã trả lời",
-        icon: "mdi-reply-all",
-        color: "success",
-        queries: { status: 2 }
-      },
-      {
         title: "Câu hỏi chưa trả lời",
         icon: "mdi-reply",
         color: "warning",
@@ -99,8 +107,14 @@ export default {
     ],
     mini: false,
     menuSelected: 0,
-    fab: false
+    fab: false,
+    alert: false
   }),
+  watch: {
+    "$store.getters.alertStatus"(val) {
+      this.alert = val;
+    }
+  },
   created() {},
   methods: {
     onFilter(item, index) {
@@ -132,3 +146,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.app-alert {
+  position: absolute;
+  z-index: 100;
+  top: 35px;
+  right: 28px;
+}
+</style>

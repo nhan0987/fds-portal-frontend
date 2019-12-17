@@ -113,15 +113,21 @@ export default {
         dataAdd.append("status", this.checkboxStatus ? 0 : 5);
         dataAdd.append("answerContent", this.answerContent);
         await this.$httpAxios
-          .post(
-            this.end_point_questions,
-            dataAdd,
-            {}
-          )
+          .post(this.end_point_questions, dataAdd, {})
           .then(response => response.data);
         this.isLoading = false;
+        this.$store.dispatch("showAlert", {
+          alertColor: "success",
+          alertStatus: true,
+          alertMessage: "Đã cập nhật nội dung câu trả lời thành công"
+        });
       } catch (error) {
         // console.error(error);
+        this.$store.dispatch("showAlert", {
+          alertColor: "error",
+          alertStatus: true,
+          alertMessage: "Không cập nhật được nội dung câu trả lời"
+        });
         this.isLoading = false;
       }
     },
