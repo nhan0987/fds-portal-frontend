@@ -2,25 +2,37 @@
   <v-app id="app-faq">
     <v-content>
       <v-container fluid>
+        <v-alert
+          :value="alert"
+          :color="$store.getters.alertColor"
+          dark
+          border="left"
+          icon="mdi-bell-check"
+          transition="scale-transition"
+          width="500"
+          class="app-alert"
+          dismissible
+          prominent
+        >
+          {{ $store.getters.alertMessage }}
+        </v-alert>
         <v-btn
-          text
-          icon
           color="primary"
           class="faq-change-view"
           @click="isAddPage = true"
           v-if="!isAddPage"
         >
-          <v-icon>mdi-bookmark-plus</v-icon>
+          Thêm câu hỏi
+          <v-icon right>mdi-plus-thick</v-icon>
         </v-btn>
         <v-btn
-          text
-          icon
           color="primary"
           class="faq-change-view"
           @click="isAddPage = false"
           v-if="isAddPage"
         >
-          <v-icon>mdi-format-list-bulleted</v-icon>
+          <v-icon left>mdi-keyboard-backspace</v-icon>
+          Quay lại
         </v-btn>
         <v-row class="faq" wrap>
           <v-col xs12>
@@ -76,8 +88,14 @@ export default {
   },
   data: () => ({
     fab: false,
-    isAddPage: false
+    isAddPage: false,
+    alert: false
   }),
+  watch: {
+    "$store.getters.alertStatus"(val) {
+      this.alert = val;
+    }
+  },
   methods: {
     onScroll(e) {
       if (typeof window === "undefined") return;
@@ -96,6 +114,12 @@ export default {
   position: absolute;
   z-index: 1;
   top: 35px;
-  right: 22px;
+  right: 28px;
+}
+.app-alert {
+  position: absolute;
+  z-index: 100;
+  top: 35px;
+  right: 28px;
 }
 </style>

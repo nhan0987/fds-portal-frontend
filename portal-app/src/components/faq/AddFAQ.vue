@@ -186,8 +186,18 @@ export default {
         this.$refs.form.reset();
         this.isAdding = false;
         this.$emit("onHideAddPage");
+        this.$store.dispatch("showAlert", {
+          alertColor: "success",
+          alertStatus: true,
+          alertMessage: "Đã gửi câu hỏi thành công"
+        });
       } catch (error) {
         // console.error(error);
+        this.$store.dispatch("showAlert", {
+          alertColor: "error",
+          alertStatus: true,
+          alertMessage: "Không gửi được câu hỏi"
+        });
         this.isAdding = false;
       }
     },

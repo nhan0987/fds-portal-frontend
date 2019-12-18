@@ -4,24 +4,35 @@
       <v-list-item-content>
         <v-list-item-title class="headline primary--text">
           {{ title }}
-          <v-btn
-            icon
-            color="primary"
-            :class="'float-right' + (isOAdmin ? ' mr-5' : '')"
-            @click="$router.replace({ name: 'listFAQ' })"
-            v-if="isOAdmin"
-          >
-            <v-icon>mdi-comment-arrow-left-outline</v-icon>
-          </v-btn>
-          <v-btn
-            icon
-            color="primary"
-            class="float-right"
-            @click="$router.replace({ name: 'faq' })"
-            v-if="isOAdmin"
-          >
-            <v-icon>mdi-comment-arrow-right-outline</v-icon>
-          </v-btn>
+          <v-tooltip left>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                v-on="on"
+                icon
+                color="primary"
+                :class="
+                  'float-right' + (isOAdmin & !isAdmin ? ' btn-admin-mgt' : '')
+                "
+                @click="$router.replace({ name: 'listFAQ' })"
+                v-if="isOAdmin & !isAdmin"
+              >
+                <v-icon>mdi-menu</v-icon>
+              </v-btn>
+              <v-btn
+                v-on="on"
+                icon
+                color="primary"
+                :class="
+                  'float-right' + (isOAdmin & !isAdmin ? ' btn-admin-mgt' : '')
+                "
+                @click="$router.replace({ name: 'faq' })"
+                v-if="isOAdmin & isAdmin"
+              >
+                <v-icon>mdi-menu-open</v-icon>
+              </v-btn>
+            </template>
+            <span>Menu</span>
+          </v-tooltip>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -315,8 +326,18 @@ export default {
         if (data) {
           item.status = toggle;
         }
+        this.$store.dispatch("showAlert", {
+          alertColor: "success",
+          alertStatus: true,
+          alertMessage: "Đã thay đổi trạng thái câu hỏi"
+        });
       } catch (error) {
         // console.error(error);
+        this.$store.dispatch("showAlert", {
+          alertColor: "error",
+          alertStatus: true,
+          alertMessage: "Không thay đổi được trạng thái câu hỏi"
+        });
       }
     },
     deleteQuestion(item) {
@@ -338,8 +359,18 @@ export default {
             reNew: Number(this.$route.query.reNew || 0) + 1
           }
         });
+        this.$store.dispatch("showAlert", {
+          alertColor: "success",
+          alertStatus: true,
+          alertMessage: "Đã xóa câu hỏi thành công"
+        });
       } catch (error) {
         // console.error(error);
+        this.$store.dispatch("showAlert", {
+          alertColor: "error",
+          alertStatus: true,
+          alertMessage: "Không xóa được câu hỏi"
+        });
       }
     }
   }
@@ -359,5 +390,8 @@ export default {
   position: absolute;
   top: 15px;
   right: 45px;
+}
+.btn-admin-mgt {
+  margin-right: 180px;
 }
 </style>
